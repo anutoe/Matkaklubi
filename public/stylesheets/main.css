@@ -260,14 +260,10 @@ body {
 }
 
 .firmanimi {
-  text-align: center;
   letter-spacing: 0px;
-  top: 2991px;
-  left: 583px;
-  width: 366px;
-  height: 20px;
   font-size: 16.67px;
-  display: flex;
+  padding: 50px 5px 5px 10px;
+
   
 }
 
@@ -281,12 +277,12 @@ body {
   justify-content: space-between;
   
   
+  
 }
 
 .icons {
 display: inline-block;
 flex-direction: row;
-margin-right: auto;
 padding: 37px 72px 140px;
 
 }
