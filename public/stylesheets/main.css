@@ -31,7 +31,10 @@ body {
 .pais {
   display: flex;
   justify-content: space-between;
-  margin-left: 50px;
+  margin-left: 100px;
+  margin-right: 100px;
+  width: 95%;
+
 }
 
 .pais>nav {
@@ -269,15 +272,16 @@ body {
 
 .footer {
   margin-bottom: 200px;
+  margin-right: 50px;
+  margin-left: 100px;
   padding: 25px 50px 75px 100px;
   font-family: 'Montserrat', sans-serif;
   display: flex;
   flex-direction: row;
-  width: 100%;
   justify-content: space-between;
-  
-  
-  
+
+
+ 
 }
 
 .icons {
