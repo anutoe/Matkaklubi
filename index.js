@@ -20,8 +20,8 @@ const matk2 = {
   startsAt: '1. juuli, 11:00',
   endsAt: '1. juuli, 18:00',
   locationDescription: 'Pirita rannas',
-  locationLatitude: '59.393345',
-  locationLongitude: '24.722974',
+  locationLatitude: '59.47082',
+  locationLongitude: '24.82896',
   price: '50€',
   imageUrl: 'https://trek.scene7.com/is/image/TrekBicycleProducts/b300_mtbMarqueeImage?wid=1200',
 };
@@ -32,8 +32,8 @@ const matk3 = {
   startsAt: '29. mai, 9:00',
   endsAt: '30. mai, 14:00',
   locationDescription: 'Virtsu sadamas',
-  locationLatitude: '59.393345',
-  locationLongitude: '24.722974',
+  locationLatitude: '58.57527',
+  locationLongitude: '23.50843',
   price: '10€',
   imageUrl: 'http://ontheedgemag.com/wp-content/uploads/2018/08/Ice-Swim-3-Ryan-Stramrood.jpg',
 };
