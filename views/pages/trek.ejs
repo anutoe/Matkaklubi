@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <title>Matk</title>
     <%- include ("../partials/header.ejs") %>
 </head>
 
@@ -11,7 +12,9 @@
         <%- include ("../partials/nav.ejs") %>
 
     </div>
-    <div> siin on uudised</div>
+    <div> 
+        <% = matk.title %>
+    </div>
     <%- include ("../partials/nav-all.ejs") %>
 </body>
 

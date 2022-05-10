@@ -3,11 +3,12 @@ const path = require('path');
 const PORT = process.env.PORT || 5000;
 
 const matk1 = {
+  id: 0,
   title: 'Kepikõnd ümber Ülemiste järve',
   description: 'Jalad jäävad kuivaks.',
-  startsAt: '6. juuni, 10:00 hommikul',
+  startsAt: '6. juuni, 10:00',
   endsAt: '6. juuni, 14:00',
-  locationDescription: 'Järve Selveri parkla',
+  locationDescription: 'Järve Selveri parklas',
   locationLatitude: '59.393345',
   locationLongitude: '24.722974',
   price: '20€',
@@ -15,6 +16,7 @@ const matk1 = {
 };
 
 const matk2 = {
+  id: 1,
   title: 'Rattamatk ümber Naissaare',
   description: 'Saame kokku Pirita rannas, ujume ratastega üle ja sõidame paar tundi. Toitulustus on hinna sees.',
   startsAt: '1. juuli, 11:00',
@@ -27,6 +29,7 @@ const matk2 = {
 };
 
 const matk3 = {
+  id: 2,
   title: 'Ujumine üle Suure Väina',
   description: 'Kaasa ujukad.',
   startsAt: '29. mai, 9:00',
@@ -40,12 +43,19 @@ const matk3 = {
 
 const matkad = [matk1, matk2, matk3];
 
+const naitaMatkaVaadet = (req, res) => {
+  const matk = matkad.find(matk) => matk.id === parseInt(req.params.matkaId);
+  return  res.render('pages/trek', { matk: matk });
+} 
+  
+
 express()
   .use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/index'))
   .get('/contact', (req, res) => res.render('pages/contact'))
+  .get('/trek/:matkaId', naitaMatkaVaadet)
   .get('/treks', (req, res) => res.render('pages/treks', { matkad: matkad }))
   .get('/news', (req, res) => res.render('pages/news'))
   .listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));

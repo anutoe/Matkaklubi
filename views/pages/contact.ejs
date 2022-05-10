@@ -2,24 +2,25 @@
 <html>
 
 <head>
+    <title>Matkaklubi - Contact</title>
+    <link rel="stylesheet" href="/Matkaklubi/public/stylesheets/main.css">
     <%- include ("../partials/header.ejs") %>
 </head>
 
 <body>
-    <div class="container-fluid pais-sektsioon">
-        <%- include ("../partials/nav.ejs") %>
-            <div class="container-fluid kontakti-sektsioon">
-                <label for="name" class="form-label">Nimi</label>
-                <input id="name" class="form-control" type="text" placeholder="Peeter Paan">
-                <label for="email class=" form-label"">E-mail</label>
-                <input id="email" class="form-control" type="email" placeholder="paanipets@gmail.com">
-                <label for="message" class="form-label">Sõnum</label>
-                <textarea id="message" class="form-control" placeholder="Kirjuta sõnum siia..."></textarea>
-                <button id="sendMessage" class="btn btn-light">Saada sõnum</button>
-            </div>
-    </div>
-    <div>siin on kontakt</div>
-    <script src="/scripts/contact.js"></script>
+    <%- include ("../partials/nav.ejs") %> 
+    
+      <div id="teade"></div>
+      <h3>Contact us</h3>
+      <form>
+          <label >Name: </label> <input type="text"id="name"> <br>
+          <label >E-mail: </label> <input type="email"id="email"><br>
+          <label >Message: </label>
+          <textarea id="sonum" rows="4" cols="40"></textarea><br><br>
+          <input id="saada" type="submit" value="Send" > 
+      </form>
+      <script src="/Matkaklubi/views/script.js"></script> 
+      <%- include ("../partials/nav-all.ejs") %>
 </body>
 
 </html>
