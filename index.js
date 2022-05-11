@@ -45,9 +45,10 @@ const matkad = [matk1, matk2, matk3];
 
 const naitaMatkaVaadet = (req, res) => {
   const matk = matkad.find(matk) => matk.id === parseInt(req.params.matkaId);
-  return  res.render('pages/trek', { matk: matk });
-} 
+  return  res.render('pages/trek'; {matk: matk });
   
+};
+
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
@@ -58,4 +59,4 @@ express()
   .get('/trek/:matkaId', naitaMatkaVaadet)
   .get('/treks', (req, res) => res.render('pages/treks', { matkad: matkad }))
   .get('/news', (req, res) => res.render('pages/news'))
-  .listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
+  .listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`)); 
