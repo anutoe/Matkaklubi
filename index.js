@@ -13,6 +13,7 @@ const matk1 = {
   locationLongitude: '24.722974',
   price: '20€',
   imageUrl: 'https://shawellnessclinic.com/wp-content/uploads/2014/11/nordic-walking3.jpg',
+  participants: [],
 };
 
 const matk2 = {
@@ -26,6 +27,7 @@ const matk2 = {
   locationLongitude: '24.82896',
   price: '50€',
   imageUrl: 'https://trek.scene7.com/is/image/TrekBicycleProducts/b300_mtbMarqueeImage?wid=1200',
+  participants: [],
 };
 
 const matk3 = {
@@ -39,13 +41,14 @@ const matk3 = {
   locationLongitude: '23.50843',
   price: '10€',
   imageUrl: 'http://ontheedgemag.com/wp-content/uploads/2018/08/Ice-Swim-3-Ryan-Stramrood.jpg',
+  participants: [],
 };
 
 const matkad = [matk1, matk2, matk3];
 
 const naitaMatkaVaadet = (req, res) => {
-  const matk = matkad.find(matk) => matk.id === parseInt(req.params.matkaId);
-  return  res.render('pages/trek'; {matk: matk });
+  const matk = matkad.find((matk) => matk.id === parseInt(req.params.matkaId));
+  return  res.render('pages/trek', { matk: matk });
   
 };
 
