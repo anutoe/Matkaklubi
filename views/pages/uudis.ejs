@@ -10,44 +10,41 @@
  
 <body>
  
-<div class="container-fluid pais-sektsioon">
+    <div class="container-fluid pais-sektsioon">
         <%- include ("../partials/nav.ejs") %> 
 
-            <div class="uudised">
 
-                       <% for(let i=0; i < uudised.length; i++) { %>
+                  <div class="uudised">
+                <% for(let i=0; i <uudised.length; i++) { %>
                     <div class="uudis">
                         <div class="uudise-pealkiri">
                             <%= uudised[i].title %>
-                                </div>
+                        </div>
                         <div class="uudise-aeg">
-                            <%= uudised[i].date %>
+                                    <%= uudised[i].date %> -
                                 </div>
                         <div class="uudise-autor">
-                            <%= uudised[i].author %>
+                                    <%= uudised[i].author %>
                                 </div>      
                         <div class="uudise-kirjeldus">
                             <%= uudised[i].description %>
-                                </div>
-                        <div class="uudise-pilt">
-                            <img src="<%= uudised[i].imageUrl %>" width="350" height="250">
-                                </div>
-                                
-                    <a href=<%=`uudis/${uudised[i].id}`%> <div class="matka-nupp">Registreeru matkale</a>       
                         </div>
+                            <div class="uudise-pilt">
+                                <img src="<%= uudised[i].imageUrl %>" width="350" height="250">
+
+                   
+                            </div>
+   
                         </div>
+                    </div>
                     <% } %>
              
-                </div>
             </div>
-         
-                <%- include ("../partials/nav-all.ejs") %>
+            <%- include ("../partials/nav-all.ejs") %>
                 </div>
-            
-            </div>
                
-        
-</div>
+          </div>
+    
 </body>
  
 </html>

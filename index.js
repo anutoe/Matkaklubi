@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const PORT = process.env.PORT || 5000;
-
+ 
 const matk1 = {
   id: 0,
   title: 'Kepikõnd ümber Ülemiste järve',
@@ -15,7 +15,7 @@ const matk1 = {
   imageUrl: 'https://shawellnessclinic.com/wp-content/uploads/2014/11/nordic-walking3.jpg',
   participants: [],
 };
-
+ 
 const matk2 = {
   id: 1,
   title: 'Rattamatk ümber Naissaare',
@@ -29,7 +29,7 @@ const matk2 = {
   imageUrl: 'https://trek.scene7.com/is/image/TrekBicycleProducts/b300_mtbMarqueeImage?wid=1200',
   participants: [],
 };
-
+ 
 const matk3 = {
   id: 2,
   title: 'Ujumine üle Suure Väina',
@@ -43,16 +43,50 @@ const matk3 = {
   imageUrl: 'http://ontheedgemag.com/wp-content/uploads/2018/08/Ice-Swim-3-Ryan-Stramrood.jpg',
   participants: [],
 };
-
+ 
 const matkad = [matk1, matk2, matk3];
-
+ 
 const naitaMatkaVaadet = (req, res) => {
   const matk = matkad.find((matk) => matk.id === parseInt(req.params.matkaId));
   return  res.render('pages/trek', { matk: matk });
-  
+ 
 };
-
-
+ 
+const uudis1 = {
+  id: 0,
+  title:'Toimus kepikõnd ümber Ülemiste järve',
+  date: '6. juuni',
+  author: 'Mari Murakas',
+  description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  imageUrl: 'https://shawellnessclinic.com/wp-content/uploads/2014/11/nordic-walking3.jpg',
+};
+const uudis2 = {
+  id: 1,
+  title:'Toimus rattamatk ümber Naissaare',
+  date: '2. juuli',
+  author: 'Mari Murakas',
+  description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  imageUrl: 'https://trek.scene7.com/is/image/TrekBicycleProducts/b300_mtbMarqueeImage?wid=1200',
+};
+const uudis3 = {
+  id: 2,
+  title:'Toimus ujumine üle Suure Väina',
+  date: '29. mai',
+  author: 'Mari Murakas',
+  description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  imageUrl: 'http://ontheedgemag.com/wp-content/uploads/2018/08/Ice-Swim-3-Ryan-Stramrood.jpg',
+};
+ 
+const uudised = [uudis1, uudis2, uudis3];
+ 
+ 
+const naitaUudiseid = (req, res) => {
+  const uudis = uudised.find((uudis) => uudis.id === parseInt(req.params.uudiseId));
+  return  res.render('pages/uudis', { uudised: uudis });
+ 
+};
+ 
+ 
 express()
   .use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
@@ -61,5 +95,7 @@ express()
   .get('/contact', (req, res) => res.render('pages/contact'))
   .get('/trek/:matkaId', naitaMatkaVaadet)
   .get('/treks', (req, res) => res.render('pages/treks', { matkad: matkad }))
-  .get('/news', (req, res) => res.render('pages/news'))
-  .listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`)); 
+  .get('/uudis/:uudiseId', naitaUudiseid )
+  .get('/news', (req, res) => res.render('pages/news', { uudised: uudised }))
+  .listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
+
