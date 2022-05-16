@@ -85,7 +85,14 @@ const naitaUudiseid = (req, res) => {
   return  res.render('pages/uudis', { uudised: uudis });
  
 };
- 
+
+const registreeriOsaleja = (req, res) => {
+  const paringuKeha = req.body;
+  const matk = matkad.find((matk) => matk.id === parseInt(paringuKeha.matkaId));
+  matk.participants.push(paringuKeha.osaleja);
+  console.log(JSON.stringify(matkad));
+  res.json({ response: 'Töötas!' });
+}
  
 express()
   .use(express.static(path.join(__dirname, 'public')))
@@ -97,5 +104,6 @@ express()
   .get('/treks', (req, res) => res.render('pages/treks', { matkad: matkad }))
   .get('/uudis/:uudiseId', naitaUudiseid )
   .get('/news', (req, res) => res.render('pages/news', { uudised: uudised }))
+  .post('/api/register', registreeriOsaleja)
   .listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
 

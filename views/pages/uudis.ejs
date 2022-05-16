@@ -3,7 +3,7 @@
  
 <head>
     <title>Matkaklubi - Uudised</title>
-    <link rel="stylesheet" href="/stylesheets/treks.css">
+    <link rel="stylesheet" href="/stylesheets/trek.css">
     <%- include ("../partials/header.ejs") %>
 
 </head>
@@ -15,29 +15,28 @@
 
 
                   <div class="uudised">
-                <% for(let i=0; i <uudised.length; i++) { %>
-                    <div class="uudis">
+                            <div class="uudis">
                         <div class="uudise-pealkiri">
-                            <%= uudised[i].title %>
+                            <%= uudised.title %>
                         </div>
                         <div class="uudise-aeg">
-                                    <%= uudised[i].date %> -
+                                    <%= uudised.date %>
                                 </div>
                         <div class="uudise-autor">
-                                    <%= uudised[i].author %>
+                                    <%= uudised.author %>
                                 </div>      
                         <div class="uudise-kirjeldus">
-                            <%= uudised[i].description %>
+                            <%= uudised.description %>
                         </div>
-                            <div class="uudise-pilt">
-                                <img src="<%= uudised[i].imageUrl %>" width="350" height="250">
+            <div class="uudise-pilt">
+                                <img src="<%= uudised.imageUrl %>" >
 
                    
                             </div>
    
                         </div>
                     </div>
-                    <% } %>
+                  
              
             </div>
             <%- include ("../partials/nav-all.ejs") %>

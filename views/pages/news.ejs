@@ -18,36 +18,30 @@
                        <% for(let i=0; i < uudised.length; i++) { %>
                     <div class="uudis">
                         <div class="uudise-pealkiri">
-                            <%= uudised[i].title %>
-                                </div>
+                            <%= uudised[i].title %></div>
+                                
                         <div class="uudise-aeg">
-                            <%= uudised[i].date %>
-                                </div>
+                            <%= uudised[i].date %></div>
+                                
                         <div class="uudise-autor">
-                            <%= uudised[i].author %>
-                                </div>      
+                            <%= uudised[i].author %></div>
+                                     
                         <div class="uudise-kirjeldus">
                             <%= uudised[i].description %>
-                                </div>
+                                
                         <div class="uudise-pilt">
                             <img src="<%= uudised[i].imageUrl %>" width="350" height="250">
                                 </div>
                                 
-                    <a href=<%=`uudis/${uudised[i].id}`%> <div class="matka-nupp">Registreeru matkale</a>       
-                        </div>
+                    <a href=<%=`uudis/${uudised[i].id}`%> <div class="matka-nupp">Vaata lähemalt</a>       </div>
                         </div>
                     <% } %>
              
                 </div>
-            </div>
-         
-                <%- include ("../partials/nav-all.ejs") %>
-                </div>
-            
-            </div>
-               
-        
-</div>
+           
+
+<%- include ("../partials/nav-all.ejs") %>
+
 </body>
  
 </html>
