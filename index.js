@@ -88,13 +88,30 @@ const naitaUudiseid = (req, res) => {
 
 const registreeriOsaleja = (req, res) => {
   const paringuKeha = req.body;
+  console.log(paringuKeha);
   const matk = matkad.find((matk) => matk.id === parseInt(paringuKeha.matkaId));
   matk.participants.push(paringuKeha.osaleja);
   console.log(JSON.stringify(matkad));
   res.json({ response: 'Töötas!' });
 }
+
+const tagastaMatkad = (req, res) => {
+  res.json(matkad);
+}
+
+const salvestaMatk = (req, res) => {
+  const matkaId = req.params.matkaId;
+  let matk = matkad.find((matk) => matk.id === parseInt(matkaId));
+  matk.title = req.body.title;
+  matk.startsAt = req.body.startsAt;
+  matk.endsAt = req.body.endsAt;
+  matk.description = req.body.description;
+  matk.imageUrl = req.body.imageUrl;
+  res.json({ response: 'Töötas!' });
+}
  
 express()
+  .use(express.json())
   .use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
@@ -105,5 +122,8 @@ express()
   .get('/uudis/:uudiseId', naitaUudiseid )
   .get('/news', (req, res) => res.render('pages/news', { uudised: uudised }))
   .post('/api/register', registreeriOsaleja)
+  .get('/api/treks', tagastaMatkad)
+  .post('/api/treks/:matkaId', salvestaMatk)
+  .get('/admin', (req, res) => res.render('pages/admin'))
   .listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
 
