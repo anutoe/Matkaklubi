@@ -3,6 +3,10 @@
     margin: 40px;
 }
 
+.detail-lisa{
+    display: inline-block;
+}
+
 .matkad>div {
     margin-bottom: 10px;
 }
@@ -24,7 +28,7 @@ textarea {
 
 button {
     margin-top: 15px !important;
-    width: 150px;
+    width: 150px;  
 }
 
 .osalejad {

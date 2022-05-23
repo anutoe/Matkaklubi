@@ -2,7 +2,8 @@ const matkadElement = document.getElementById('matkad');
 const matkaDetailElement = document.getElementById('matka-detail');
 const matkaPealkiriElement = document.getElementById('matka-pealkiri');
 const detailPealkiriElement = document.getElementById('detail-pealkiri');
-const detailAegElement = document.getElementById('detail-aeg');
+const detailAlgusElement = document.getElementById('detail-algus');
+const detailLoppElement = document.getElementById('detail-lopp');
 const detailKirjeldusElement = document.getElementById('detail-kirjeldus');
 const detailPiltElement = document.getElementById('detail-pilt');
 const detailSalvestaElement = document.getElementById('detail-salvesta');
@@ -17,14 +18,14 @@ const laeMatkad = async () => {
     for (let i = 0; i < matkad.length; i++) {
         matkadElement.innerHTML += `
             <div>
-                <a href="#" onclick="kuvaMatkaDetail(${matkad[i].id})">${matkad[i].title}</a>
+                <a href="#" onclick="kuvaMatkaDetail(${matkad[i]._id})">${matkad[i].title}</a>
             </div>
         `;
     }
 }
 
 const kuvaMatkaDetail = (id) => {
-    matk = matkad.find((matk) => matk.id === id);
+    matk = matkad.find((matk) => matk._id === id);
     let osalejateNimed = "";
     for (let i = 0; i < matk.participants.length; i++) {
         osalejateNimed += `<div>${matk.participants[i].nimi}</div>`;
@@ -32,7 +33,8 @@ const kuvaMatkaDetail = (id) => {
     matkaDetailElement.style.display = 'flex';
     matkaPealkiriElement.innerHTML = matk.title;
     detailPealkiriElement.value = matk.title;
-    detailAegElement.value = matk.startsAt, matk.endsAt;
+    detailAlgusElement.value = matk.startsAt; 
+    detailLoppElement.value = matk.endsAt;
     detailKirjeldusElement.value = matk.description;
     detailPiltElement.value = matk.imageUrl;
     detailSalvestaElement.addEventListener("click", salvestaMatk);
@@ -41,13 +43,13 @@ const kuvaMatkaDetail = (id) => {
 
 const salvestaMatk = async () => {
     matk.title = detailPealkiriElement.value;
-    matk.startsAt = detailAegElement.value;
-    matk.endsAt = detailAegElement.value;
+    matk.startsAt = detailAlgusElement.value;
+    matk.endsAt = detailLoppElement.value;
     matk.description = detailKirjeldusElement.value;
     matk.imageUrl = detailPiltElement.value;
 
     try {
-        const response = await fetch(`/api/treks/${matk.id}`, {
+        const response = await fetch(`/api/treks/${matk._id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -60,7 +62,7 @@ const salvestaMatk = async () => {
         console.log(e);
     }
     await laeMatkad();
-    kuvaMatkaDetail(matk.id);
+    kuvaMatkaDetail(matk._id);
 }
 
 (async () => {

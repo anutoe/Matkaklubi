@@ -1,56 +1,103 @@
 const express = require('express');
 const path = require('path');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const PORT = process.env.PORT || 5000;
+
+let matkad;
+
+
+const uri = "mongodb+srv://anutoe:AqpRP5yt@cluster0.hbaer.mongodb.net/?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+client.connect(err => {
+    const collection = client.db("matka-app-2203").collection("treks").find().toArray((err, result) => {
+  // perform actions on the collection object
+  console.log(collection)
+  client.close();
+  })});
+
+
+  const loeMatkadMallu = (async () => {
+    try {
+      await client.connect();
+      const collection = client.db('matka-app-2203').collection('treks');
+      matkad = await collection.find().toArray();
+    } finally {
+      await client.close();
+      console.log(matkad);
+    }
+  })()
+  
+  const naitaMatkaVaadet = async (req, res) => {
+    let matk;
+    try {
+      await client.connect();
+      const collection = client.db('matka-app-2203').collection('treks');
+      matk = await collection.findOne({ _id: new ObjectId(req.params.matkaId) });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      await client.close();
+    }
+    return res.render('pages/trek', { matk });
+  }
+  
+  const registreeriOsaleja = async (req, res) => {
+    const paringuKeha = req.body;
+    try {
+      await client.connect();
+      const collection = client.db('matka-app-2203').collection('treks');
+      const filter = { _id: new ObjectId(paringuKeha.matkaId) };
+      const updateDoc = {
+        $push: { participants: paringuKeha.osaleja }
+      };
+      matk = await collection.updateOne(filter, updateDoc);
+      res.json({ response: 'Töötas!' });
+    } catch (error) {
+      console.log(error);
+      res.json({ response: 'Katki läks!' });
+    } finally {
+      await client.close();
+    }
+  }
+  
+  const tagastaMatkad = async (req, res) => {
+    try {
+      await client.connect();
+      const collection = client.db('matka-app-2203').collection('treks');
+      const treks = await collection.find().toArray();
+      res.json(treks);
+    } catch (error) {
+      console.log(error);
+      res.json({ response: 'Katki läks!' });
+    } finally {
+      await client.close();
+    }
+  }
+  
+  const salvestaMatk = async (req, res) => {
+    const matkaId = req.params.matkaId;
+    try {
+      await client.connect();
+      const collection = client.db('matka-app-2203').collection('treks');
+      const filter = { _id: new ObjectId(matkaId) };
+      const updateDoc = {
+        $set: {
+          title: req.body.title,
+          description: req.body.description,
+          imageUrl: req.body.imageUrl,
+        }
+      };
+      matk = await collection.updateOne(filter, updateDoc);
+      res.json({ response: 'Töötas!' });
+    } catch (error) {
+      console.log(error);
+      res.json({ response: 'Katki läks!' });
+    } finally {
+      await client.close();
+    }
+  }
+
  
-const matk1 = {
-  id: 0,
-  title: 'Kepikõnd ümber Ülemiste järve',
-  description: 'Jalad jäävad kuivaks.',
-  startsAt: '6. juuni, 10:00',
-  endsAt: '6. juuni, 14:00',
-  locationDescription: 'Järve Selveri parklas',
-  locationLatitude: '59.393345',
-  locationLongitude: '24.722974',
-  price: '20€',
-  imageUrl: 'https://shawellnessclinic.com/wp-content/uploads/2014/11/nordic-walking3.jpg',
-  participants: [],
-};
- 
-const matk2 = {
-  id: 1,
-  title: 'Rattamatk ümber Naissaare',
-  description: 'Saame kokku Pirita rannas, ujume ratastega üle ja sõidame paar tundi. Toitulustus on hinna sees.',
-  startsAt: '1. juuli, 11:00',
-  endsAt: '1. juuli, 18:00',
-  locationDescription: 'Pirita rannas',
-  locationLatitude: '59.47082',
-  locationLongitude: '24.82896',
-  price: '50€',
-  imageUrl: 'https://trek.scene7.com/is/image/TrekBicycleProducts/b300_mtbMarqueeImage?wid=1200',
-  participants: [],
-};
- 
-const matk3 = {
-  id: 2,
-  title: 'Ujumine üle Suure Väina',
-  description: 'Kaasa ujukad.',
-  startsAt: '29. mai, 9:00',
-  endsAt: '30. mai, 14:00',
-  locationDescription: 'Virtsu sadamas',
-  locationLatitude: '58.57527',
-  locationLongitude: '23.50843',
-  price: '10€',
-  imageUrl: 'http://ontheedgemag.com/wp-content/uploads/2018/08/Ice-Swim-3-Ryan-Stramrood.jpg',
-  participants: [],
-};
- 
-const matkad = [matk1, matk2, matk3];
- 
-const naitaMatkaVaadet = (req, res) => {
-  const matk = matkad.find((matk) => matk.id === parseInt(req.params.matkaId));
-  return  res.render('pages/trek', { matk: matk });
- 
-};
  
 const uudis1 = {
   id: 0,
@@ -86,30 +133,6 @@ const naitaUudiseid = (req, res) => {
  
 };
 
-const registreeriOsaleja = (req, res) => {
-  const paringuKeha = req.body;
-  console.log(paringuKeha);
-  const matk = matkad.find((matk) => matk.id === parseInt(paringuKeha.matkaId));
-  matk.participants.push(paringuKeha.osaleja);
-  console.log(JSON.stringify(matkad));
-  res.json({ response: 'Töötas!' });
-}
-
-const tagastaMatkad = (req, res) => {
-  res.json(matkad);
-}
-
-const salvestaMatk = (req, res) => {
-  const matkaId = req.params.matkaId;
-  let matk = matkad.find((matk) => matk.id === parseInt(matkaId));
-  matk.title = req.body.title;
-  matk.startsAt = req.body.startsAt;
-  matk.endsAt = req.body.endsAt;
-  matk.description = req.body.description;
-  matk.imageUrl = req.body.imageUrl;
-  res.json({ response: 'Töötas!' });
-}
- 
 express()
   .use(express.json())
   .use(express.static(path.join(__dirname, 'public')))
@@ -126,4 +149,3 @@ express()
   .post('/api/treks/:matkaId', salvestaMatk)
   .get('/admin', (req, res) => res.render('pages/admin'))
   .listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
-
